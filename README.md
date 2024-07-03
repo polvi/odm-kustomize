@@ -1,6 +1,11 @@
-# k8s deployment of webodm
+# OpenDroneMap on Kubernetes using Kustomize
 
-The following is a kustomize base for deploying webodm on kubernetes.
+The following is a kustomize base for deploying OpenDroneMap. The following components are deployed:
+
+- WebODM
+- NodeODM
+- PostGIS
+- Redis
 
 See `base/` directory for the kustomize base.
 
