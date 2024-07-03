@@ -1,0 +1,5 @@
+namespace: odm
+
+resources:
+- ns.yml
+- ../../base

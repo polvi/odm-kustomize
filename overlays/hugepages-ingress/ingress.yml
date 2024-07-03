@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webodm
+spec:
+  ingressClassName: "caddy"
+  tls:
+    - hosts:
+        - odm.example.com
+      secretName: odm.example.com
+  rules:
+    - host: odm.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: webodm
+                port:
+                  number: 8000
+

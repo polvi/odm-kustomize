@@ -1,0 +1,5 @@
+resources:
+- ../../base
+- ingress.yml
+patches:
+- path: hugepages_patch.yml

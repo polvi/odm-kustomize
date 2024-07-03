@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odm-db
+spec:
+    spec:
+      containers:
+        resources:
+          limits:
+            hugepages-2Mi: 512Mi
+            memory: 512Mi
+          requests:
+            hugepages-2Mi: 512Mi
+            memory: 128Mi 
+
+

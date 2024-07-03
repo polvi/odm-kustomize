@@ -1,0 +1,9 @@
+resources:
+- db.yml
+- redis.yml
+- odm.yml
+
+configMapGenerator:
+- name: init-sql
+  files:
+  - init.sql

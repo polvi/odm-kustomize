@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: odm-dbdata-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: odm-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odm-db
+  template:
+    metadata:
+      labels:
+        app: odm-db
+    spec:
+      containers:
+      - name: db
+        image: postgis/postgis:16-3.4
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: dbdata
+          mountPath: /var/lib/postgresql
+        - name: init-db-scripts
+          mountPath: /docker-entrypoint-initdb.d
+        env:
+        - name: POSTGRES_HOST_AUTH_METHOD
+          value: "trust"
+      volumes: 
+      - name: dbdata
+        persistentVolumeClaim:
+          claimName: odm-dbdata-pvc
+      - name: init-db-scripts
+        configMap:
+          name: init-sql
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: odm-db
+spec:
+  selector:
+    app: odm-db
+  ports:
+  - protocol: TCP
+    port: 5432
+    targetPort: 5432
+
