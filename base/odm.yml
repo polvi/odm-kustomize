@@ -78,7 +78,8 @@ spec:
           command: ["/bin/bash", "-c", "chmod +x /webodm/*.sh && /bin/bash -c \"/webodm/wait-for-postgres.sh odm-db /webodm/wait-for-it.sh -t 0 odm-broker:6379 -- /webodm/wait-for-it.sh -t 0 webodm:8000 -- /webodm/worker.sh start\""]
       volumes:
         - name: data-volume
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: odm-webodm
 ---
 
 
@@ -108,4 +109,15 @@ spec:
       port: 8000
       targetPort: 8000
 
+---
 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: odm-webodm
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi

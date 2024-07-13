@@ -31,6 +31,6 @@ See `overlays/hugepages-ingress` for an example of how to control resource usage
 
 # TODO
 - [ ] Automatically add NodeODM instances to the WebODM interface
-- [ ] Make storage for webodm persistent (right now restarting the webodm instance will lose all your work)
+- [X] Make storage for webodm persistent (right now restarting the webodm instance will lose all your work)
 - [ ] Use secrets for redis and postgres passwords
 - [ ] Do not run as a privileged user, fixing `Warning: would violate PodSecurity...`
